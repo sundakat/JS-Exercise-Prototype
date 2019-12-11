@@ -48,13 +48,13 @@ Person.prototype.eat = function(someFood) {
   if (this.stomach.length < 10) {
     return this.stomach.push(someFood);
   }
-}
+};
 Person.prototype.poop = function() {
   this.stomach = [];
-}
+};
 Person.prototype.toString = function() {
   return `${this.name}, ${this.age}`;
-}
+};
 /*
   TASK 2
     - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
@@ -77,7 +77,16 @@ function Car(model, milesPerGallon) {
 }
 Car.prototype.fill = function(gallons) {
   return this.tank += gallons;
-}
+};
+Car.prototype.drive = function (distance) {
+  const driveDistance = this.tank * this.milesPerGallon;
+  const fuelNeeds = distance / this.milesPerGallon;
+  this.odometer += Math.min(distance, driveDistance);
+  this.tank = Math.max(this.tank - fuelNeeds, 0);
+  if (this.tank === 0) {
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
+};
 
 /*
   TASK 3
@@ -87,13 +96,13 @@ Car.prototype.fill = function(gallons) {
         + Should return a string "Playing with x", x being the favorite toy.
 */
 function Baby(name, age, favoriteToy) {
-  Person.call(this, name, age)
+  Person.call(this, name, age);
   this.favoriteToy = favoriteToy;
 }
 Baby.prototype = Object.create(Person.prototype);
 Baby.prototype.play = function () {
   return `Playing with ${this.favoriteToy}`;
-}
+};
 
 
 /* 
